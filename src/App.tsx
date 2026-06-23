@@ -100,9 +100,8 @@ export default function App() {
     applyTheme(nextTheme);
   };
 
-  // Simulating the APK download progress
-  const triggerDownload = (e: React.MouseEvent) => {
-    e.preventDefault();
+  // Simulating the APK download progress with real link activation
+  const triggerDownload = () => {
     if (downloading) return;
     
     setDownloading(true);
@@ -351,14 +350,17 @@ export default function App() {
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
               
               {/* Large Download APK Button */}
-              <button 
+              <a 
                 id="main-download-btn"
+                href="https://www.mediafire.com/file/jhk6sq8erody32l/onside-v2.apk/file"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={triggerDownload}
                 className="w-full sm:w-auto flex items-center justify-center space-x-3 px-8 py-5 rounded-2xl bg-emerald-500 hover:bg-emerald-600 active:transform active:scale-95 text-white font-bold text-lg shadow-lg shadow-emerald-500/30 transition-all glow-btn cursor-pointer"
               >
                 <Download className="w-5.5 h-5.5 animate-bounce" />
                 <span>{t.downloadApk}</span>
-              </button>
+              </a>
 
               {/* Secondary Join Telegram button */}
               <a 
@@ -849,14 +851,17 @@ export default function App() {
 
               {/* Big Green Download button requested in specific specifications */}
               <div className="pt-2">
-                <button 
+                <a 
                   id="direct-download-btn"
+                  href="https://www.mediafire.com/file/jhk6sq8erody32l/onside-v2.apk/file"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={triggerDownload}
                   className="w-full sm:w-auto flex items-center justify-center space-x-3 px-10 py-5 rounded-2xl bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-white font-black text-lg shadow-lg shadow-emerald-500/30 transition-all cursor-pointer"
                 >
                   <Download className="w-5.5 h-5.5" />
                   <span>{t.downloadApk}</span>
-                </button>
+                </a>
                 <span className="block text-[10px] text-slate-500 mt-2 font-mono">
                   File Size: 24.5 MB | MD5 Checked: C32B-983D-48C
                 </span>

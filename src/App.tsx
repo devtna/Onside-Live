@@ -29,11 +29,6 @@ export default function App() {
   // Dark/Light Theme state
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
-  // Interactive Downloading simulator state
-  const [downloading, setDownloading] = useState(false);
-  const [downloadProgress, setDownloadProgress] = useState(0);
-  const [showToast, setShowToast] = useState(false);
-
   // Phone simulator active tab: 'live' | 'scores' | 'highlights'
   const [phoneTab, setPhoneTab] = useState<'live' | 'scores' | 'highlights'>('live');
   // Phone simulation states
@@ -98,32 +93,6 @@ export default function App() {
     setTheme(nextTheme);
     setSafeLocalStorage('onside-theme', nextTheme);
     applyTheme(nextTheme);
-  };
-
-  // Simulating the APK download progress with real link activation
-  const triggerDownload = () => {
-    if (downloading) return;
-    
-    setDownloading(true);
-    setDownloadProgress(0);
-    setShowToast(true);
-
-    const interval = setInterval(() => {
-      setDownloadProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(() => {
-            setDownloading(false);
-            // Hide toast after a delay
-            setTimeout(() => {
-              setShowToast(false);
-            }, 5000);
-          }, 400);
-          return 100;
-        }
-        return prev + Math.floor(Math.random() * 15) + 5;
-      });
-    }, 200);
   };
 
   // Simulate scoring tick inside mockup
@@ -246,55 +215,6 @@ export default function App() {
         </div>
       </header>
 
-      {/* Floating Interactive Toast notification when triggered */}
-      <AnimatePresence>
-        {showToast && (
-          <motion.div 
-            initial={{ opacity: 0, y: 50, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-6 right-6 z-50 max-w-sm w-full"
-          >
-            <div className={`p-4 rounded-2xl shadow-2xl border flex flex-col space-y-3 ${
-              theme === 'dark' 
-                ? 'bg-slate-800 border-slate-700 text-slate-50' 
-                : 'bg-white border-slate-150 text-slate-900'
-            }`}>
-              <div className="flex items-start space-x-3">
-                <div className="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg">
-                  <Download className={`w-5 h-5 ${downloading ? 'animate-bounce' : ''}`} />
-                </div>
-                <div className="flex-1">
-                  <h4 className="text-sm font-bold font-display">
-                    {downloading ? t.toastDownloading : 'APK Ready to Install'}
-                  </h4>
-                  <p className="text-xs text-slate-400 mt-1">
-                    {downloading 
-                      ? `Onside_Live_v2.4.apk (${downloadProgress}%)` 
-                      : t.toastCompleted
-                    }
-                  </p>
-                </div>
-              </div>
-              
-              {/* Progress Slider Bar */}
-              <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                <div 
-                  className="bg-emerald-500 h-full rounded-full transition-all duration-300 ease-out"
-                  style={{ width: `${downloadProgress}%` }}
-                />
-              </div>
-
-              {/* Verified Badge info */}
-              <div className="flex items-center space-x-1 text-[10px] text-emerald-400 font-mono font-medium">
-                <ShieldCheck className="w-3.5 h-3.5" />
-                <span>Verified Anti-Virus & Malware Safe</span>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* Main Single Page Layout Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-16 space-y-24">
 
@@ -347,19 +267,30 @@ export default function App() {
             </div>
 
             {/* Action buttons defined in requirement sheet */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+            <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center lg:justify-start gap-4">
               
-              {/* Large Download APK Button */}
+              {/* Google Drive Download Button */}
               <a 
-                id="main-download-btn"
+                id="drive-download-btn"
+                href="https://drive.google.com/file/d/17ahlXRXle3Fj3s6QLJiqBXFJbVi4urgQ/view?usp=drive_link"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto flex items-center justify-center space-x-3 px-6 py-4.5 rounded-2xl bg-blue-600 hover:bg-blue-700 active:transform active:scale-95 text-white font-bold text-base shadow-lg shadow-blue-600/35 transition-all cursor-pointer border border-blue-500/10"
+              >
+                <Download className="w-5 h-5 animate-bounce" />
+                <span>{t.downloadDrive}</span>
+              </a>
+
+              {/* Mediafire Download Button */}
+              <a 
+                id="mediafire-download-btn"
                 href="https://www.mediafire.com/file/jhk6sq8erody32l/onside-v2.apk/file"
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={triggerDownload}
-                className="w-full sm:w-auto flex items-center justify-center space-x-3 px-8 py-5 rounded-2xl bg-emerald-500 hover:bg-emerald-600 active:transform active:scale-95 text-white font-bold text-lg shadow-lg shadow-emerald-500/30 transition-all glow-btn cursor-pointer"
+                className="w-full sm:w-auto flex items-center justify-center space-x-3 px-6 py-4.5 rounded-2xl bg-emerald-500 hover:bg-emerald-600 active:transform active:scale-95 text-white font-bold text-base shadow-lg shadow-emerald-500/35 transition-all cursor-pointer border border-emerald-400/10"
               >
-                <Download className="w-5.5 h-5.5 animate-bounce" />
-                <span>{t.downloadApk}</span>
+                <Download className="w-5 h-5" />
+                <span>{t.downloadMediafire}</span>
               </a>
 
               {/* Secondary Join Telegram button */}
@@ -368,7 +299,7 @@ export default function App() {
                 href="https://t.me/ballpweapp"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`w-full sm:w-auto flex items-center justify-center space-x-2.5 px-8 py-5 rounded-2xl font-bold text-base transition-all border ${
+                className={`w-full sm:w-auto flex items-center justify-center space-x-2.5 px-6 py-4.5 rounded-2xl font-bold text-base transition-all border ${
                   theme === 'dark'
                     ? 'bg-slate-800 border-slate-700 text-slate-50 hover:bg-slate-700/80'
                     : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300 shadow-sm'
@@ -850,20 +781,36 @@ export default function App() {
               </div>
 
               {/* Big Green Download button requested in specific specifications */}
-              <div className="pt-2">
-                <a 
-                  id="direct-download-btn"
-                  href="https://www.mediafire.com/file/jhk6sq8erody32l/onside-v2.apk/file"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={triggerDownload}
-                  className="w-full sm:w-auto flex items-center justify-center space-x-3 px-10 py-5 rounded-2xl bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-white font-black text-lg shadow-lg shadow-emerald-500/30 transition-all cursor-pointer"
-                >
-                  <Download className="w-5.5 h-5.5" />
-                  <span>{t.downloadApk}</span>
-                </a>
+              <div className="pt-2 space-y-4">
+                <div className="flex flex-col sm:flex-row items-center gap-4">
+                  
+                  {/* Google Drive Link */}
+                  <a 
+                    id="direct-drive-download-btn"
+                    href="https://drive.google.com/file/d/17ahlXRXle3Fj3s6QLJiqBXFJbVi4urgQ/view?usp=drive_link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto flex items-center justify-center space-x-3 px-8 py-4.5 rounded-2xl bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-bold text-base shadow-lg shadow-blue-600/35 transition-all cursor-pointer border border-blue-500/10"
+                  >
+                    <Download className="w-5 h-5 animate-pulse" />
+                    <span>{t.downloadDrive}</span>
+                  </a>
+
+                  {/* Mediafire Link */}
+                  <a 
+                    id="direct-mediafire-download-btn"
+                    href="https://www.mediafire.com/file/jhk6sq8erody32l/onside-v2.apk/file"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto flex items-center justify-center space-x-3 px-8 py-4.5 rounded-2xl bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-white font-bold text-base shadow-lg shadow-emerald-500/35 transition-all cursor-pointer border border-emerald-400/10"
+                  >
+                    <Download className="w-5 h-5" />
+                    <span>{t.downloadMediafire}</span>
+                  </a>
+
+                </div>
                 <span className="block text-[10px] text-slate-500 mt-2 font-mono">
-                  File Size: 24.5 MB | MD5 Checked: C32B-983D-48C
+                  File Size: 24.5 MB | MD5 Checked: C32B-983D-48C | Safe Offline Source verified
                 </span>
               </div>
 

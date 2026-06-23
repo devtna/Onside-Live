@@ -5,6 +5,8 @@ export interface Translation {
   badgeScores: string;
   badgeHighlights: string;
   downloadApk: string;
+  downloadDrive: string;
+  downloadMediafire: string;
   joinTelegram: string;
   featuresTitle: string;
   featuresSubtitle: string;
@@ -44,6 +46,8 @@ export const translations: Record<'mm' | 'en', Translation> = {
     badgeScores: "Live Scores",
     badgeHighlights: "Match Highlights",
     downloadApk: "Download APK",
+    downloadDrive: "Google Drive မှ ဒေါင်းလုဒ်လုပ်ရန်",
+    downloadMediafire: "Mediafire မှ ဒေါင်းလုဒ်လုပ်ရန်",
     joinTelegram: "Join Telegram",
     featuresTitle: " Onside Live ၏ ထူးခြားချက်များ",
     featuresSubtitle: "အရည်အသွေးမြင့်မားပြီး အသုံးပြုရလွယ်ကူသည့် အကောင်းဆုံးသော ဘောလုံးပွဲကြည့်အက်ပ်",
@@ -81,6 +85,8 @@ export const translations: Record<'mm' | 'en', Translation> = {
     badgeScores: "Live Scores",
     badgeHighlights: "Match Highlights",
     downloadApk: "Download APK",
+    downloadDrive: "Download via Google Drive",
+    downloadMediafire: "Download via Mediafire",
     joinTelegram: "Join Telegram",
     featuresTitle: "Amazing Features",
     featuresSubtitle: "Everything a Burmese football enthusiast needs, combined in one lightweight application.",

@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: "Outfit", "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  
+  --color-primary-sleek: #10b981;
+  --color-primary-hover-sleek: #059669;
+  --color-telegram-sleek: #0088cc;
+}
+
+:root {
+  transition: background-color 0.3s ease, color 0.3s ease;
+  /* Sleek Interface Variables */
+  --bg-sleek: #f8fafc;
+  --card-sleek: #ffffff;
+  --text-sleek: #0f172a;
+  --text-muted-sleek: #64748b;
+  --border-sleek: #e2e8f0;
+}
+
+.dark {
+  --bg-sleek: #0f172a;
+  --card-sleek: #1e293b;
+  --text-sleek: #f8fafc;
+  --text-muted-sleek: #94a3b8;
+  --border-sleek: #334155;
+}
+
+html, body {
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  background-color: var(--bg-sleek);
+  color: var(--text-sleek);
+}
+
+/* Glassmorphism utility updated to flow beautifully with Sleek Interface */
+.glass-effect {
+  background-color: var(--card-sleek);
+  border: 1px solid var(--border-sleek);
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  border-radius: 1rem;
+}
+
+.glass-card {
+  background: var(--card-sleek);
+  border: 1px solid var(--border-sleek);
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.08);
+}
+
+/* Animations and interactions */
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+  }
+}
+
+.glow-btn {
+  animation: pulseGlow 3s infinite ease-in-out;
+}
+
+.sporty-grid {
+  background-size: 30px 30px;
+  background-image: 
+    linear-gradient(to right, rgba(16, 185, 129, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 185, 129, 0.04) 1px, transparent 1px);
+}
+
+.dark .sporty-grid {
+  background-image: 
+    linear-gradient(to right, rgba(16, 185, 129, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 185, 129, 0.02) 1px, transparent 1px);
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Onside Live",
+  "description": "Premium APK download website for Onside Live - enjoy football live streaming, live scores, and match highlights.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
